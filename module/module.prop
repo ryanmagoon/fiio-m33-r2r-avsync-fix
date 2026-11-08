@@ -1,0 +1,7 @@
+id=fiio_m33_audiotrack_noretrack
+name=FiiO M33 R2R A/V sync fix (AudioTrack no-retrack)
+version=v1.2
+versionCode=12
+author=ryanmagoon
+description=Patches the device's own libaudioclient.so (skip forced AudioTrack recreation on start), libfiioaudio.so (do not reset the processing ring buffers when parameters are unchanged) and audio.primary.bengal.so (correct frame size in the presentation position; fixes 2x position rate in NOS mode). Ships no FiiO binaries.
+updateJson=
