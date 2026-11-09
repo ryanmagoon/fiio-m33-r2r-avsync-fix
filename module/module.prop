@@ -1,7 +1,7 @@
 id=fiio_m33_audiotrack_noretrack
-name=FiiO M33 R2R A/V sync fix (AudioTrack no-retrack)
+name=FiiO M33 R2R audio lag fixes
 version=v1.3
 versionCode=13
 author=ryanmagoon
-description=Patches the device's own libaudioclient.so (skip forced AudioTrack recreation on start), libfiioaudio.so (keep the processing ring buffers when parameters are unchanged; wait for the processing thread instead of dropping a buffer on sample-rate switches) and audio.primary.bengal.so (correct frame size in the presentation position). Ships no FiiO binaries.
+description=Fixes audio running ahead of video and lyrics, and latency building up over time, on the FiiO M33 R2R. Patches copies of the device's own audio libraries at install time. Ships no FiiO binaries.
 updateJson=

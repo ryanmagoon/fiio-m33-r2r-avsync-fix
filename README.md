@@ -1,15 +1,13 @@
-# FiiO M33 R2R A/V sync fix
+# FiiO M33 R2R audio lag fixes
 
-A Magisk module that fixes audio running ahead of video and lyrics on the FiiO M33 R2R.
-On stock firmware the gap grows every time you pause and resume, and again with every new
-clip in apps that create a fresh player per item (YouTube Shorts, playlists). Separately,
-every switch between 44.1 kHz and 48 kHz material adds about 20 ms of real output delay that
-never drains, so after hours of mixed playback audio trails the lyrics. Only a reboot clears
-any of it.
+Magisk module for the FiiO M33 R2R. On stock firmware audio drifts ahead of video and
+lyrics with every pause/resume and every new clip (YouTube Shorts, playlists), and output
+delay builds up over hours of playback that mixes 44.1 and 48 kHz material. Only a reboot
+clears it. This module fixes four defects in FiiO's audio stack that cause it.
 
-The module ships **no FiiO binaries**: at install time it verifies the device's own audio
-libraries by SHA-256, patches a handful of instructions in copies of them, and mounts the
-copies systemlessly. If any check fails it installs nothing.
+It ships **no FiiO binaries**. At install time it verifies the device's own audio libraries
+by SHA-256, patches a few instructions in copies of them, and mounts the copies
+systemlessly. If any check fails it installs nothing.
 
 > **No warranty.** This modifies system and vendor libraries on a rooted device. It has
 > been tested on one M33 R2R running firmware 1.0.2. Rooting and flashing can brick a
