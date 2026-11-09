@@ -108,9 +108,6 @@ Exact offsets, stock and patched bytes, and how to find the sites on another bui
 
 ## Known issues not addressed here
 
-- **Audible read-along offset.** Audible's text highlighting runs out of step with the
-  narration on this device as well. That is a separate app-side synchronisation and is not
-  changed by this module.
 - **32-bit apps** still get the stock `libaudioclient.so` behaviour; the 32-bit library is
   not patched. The audio framework and every relevant app on this device are 64-bit.
 
