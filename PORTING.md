@@ -2,7 +2,7 @@
 
 This guide is for a person or an AI coding agent adapting this module to a FiiO M33 R2R
 firmware other than 1.0.2, or to another FiiO Android DAP that shares FiiO's audio
-framework patches. Every step is deterministic: you locate three code sites by symbol
+framework patches. Every step is deterministic: you locate four code sites by symbol
 and string anchors, confirm the exact stock instruction bytes, record the new hashes, and
 add one entry per library to `module/customize.sh`. The installer refuses to install
 anything whose hash or bytes do not match, so a mistake in this process produces an
@@ -15,13 +15,13 @@ other builds; expect the instruction *patterns* to stay the same.
 
 1. [Prerequisites and safety rules](#1-prerequisites-and-safety-rules)
 2. [Pull the three libraries and hash them](#2-pull-the-three-libraries-and-hash-them)
-3. [The three patches](#3-the-three-patches): [3.1 libaudioclient](#31-libaudioclientso-skip-the-forced-audiotrack-recreation), [3.2 libfiioaudio](#32-libfiioaudioso-only-reset-the-processing-ring-buffers-when-parameters-change), [3.3 audio HAL](#33-audioprimarybengalso-hal-frame-size-in-the-presentation-position)
+3. [The four patches](#3-the-four-patches): [3.1 libaudioclient](#31-libaudioclientso-skip-the-forced-audiotrack-recreation), [3.2 libfiioaudio](#32-libfiioaudioso-only-reset-the-processing-ring-buffers-when-parameters-change), [3.3 audio HAL](#33-audioprimarybengalso-hal-frame-size-in-the-presentation-position), [3.4 libfiioaudio again](#34-libfiioaudioso-wait-for-the-processing-thread-instead-of-dropping-a-buffer)
 4. [Adding a firmware to customize.sh](#4-adding-a-firmware-to-customizesh)
 5. [Verification](#5-verification)
 6. [Pull request checklist](#6-pull-request-checklist)
 
 **The whole job in one paragraph.** Pull the three libraries from the device and hash them
-(section 2). In each, find one function by its exported symbol, confirm the stock
+(section 2). In each, find the functions by their exported symbols, confirm the stock
 instruction pattern shown in section 3 at that site, and compute the replacement bytes
 with the encoding formulas given there. Write the patched copies on the host and diff them
 against stock to confirm only the intended bytes changed. Paste the resulting
@@ -116,7 +116,7 @@ for i in range(phnum):
 
 ---
 
-## 3. The three patches
+## 3. The four patches
 
 For each patch: what it fixes, how to find the site, what the stock bytes look like, and
 what they become. Confirm every site in the disassembler before computing bytes. Never
@@ -183,8 +183,9 @@ Confirm with `objdump` on the patched file that the site now reads `b <skip>` an
 AudioTrack (YouTube Shorts, playlist transitions), never recovering. On every
 `createTrack`, FiiO's AudioFlinger pushes `sampling_rate` and `format` to the HAL; the HAL
 calls `FiiOAudioConfigParams()`, and `start_config_params()` zeroes the input and output ring
-buffers unconditionally, discarding queued audio. The chain then re-primes with two buffers
-that AudioFlinger counts but the HAL never writes (HAL log `no more data to write`).
+buffers unconditionally, discarding queued audio. The restart also inserts two buffers of
+silence and, as described in 3.4, usually drops one more buffer to a race with the
+processing thread.
 
 **Anchors.**
 
@@ -192,7 +193,7 @@ that AudioFlinger counts but the HAL never writes (HAL log `no more data to writ
   `processAudioConfigParams(...)` / `FiiOAudioConfigParams(...)`, `reset_player_and_pcm_cache()`.
 - Strings inside `start_config_params`: `%s: mode %s tDstFormat %d hwFormat %d tDstRate %d hwRate %d tHalRate %d tHalFormat %d lastHalFormat %d lastRate %d`
   and `%s: mode %s resample %d d2p_enable %d dsd2pcm_rate_dst %d`.
-- Runtime logs: `fiioaudio: start_config_params: mode RESAMPLE tDstFormat ...`, `fiioprocess: processAudioEvent:Insufficient audio processing efficiency ret = 0!`, `AudioStream: ... no more data to write bytes ...`.
+- Runtime logs: `fiioaudio: start_config_params: mode RESAMPLE tDstFormat ...` on every track start (stock), and `fiioaudio: stop_service_action:begin ...` only when the hardware rate really changes.
 
 **Find the sites.** The exported symbols are stubs (`b <real function>`); follow the branch.
 
@@ -252,7 +253,7 @@ segment's `p_filesz`/`p_memsz` by 8 so the bytes are formally part of the mappin
 | B | `0x165b4` | `e0 07 9f 1a` (`cset w0,ne`) | `20 00 80 52` (`mov w0,#1`) | changed-path return no longer relies on flags |
 | C | `0x1adf4` | `09 01 1d 39` (`strb w9,[x8,#0x740]`) | `1f 20 03 d5` (`nop`) | no forced stale buffer |
 | stub | `0x2b740` | `00`×8 | `e0 03 1f 2a a3 ab ff 17` (`mov w0,wzr; b 0x165d0`) | return 0 via normal epilogue |
-| phdr | `0xd0`, `0xd8` | `40 97 01 00 00 00 00 00` | `48 97 01 00 00 00 00 00` | XR LOAD filesz/memsz `0x19740` → `0x19748` |
+| phdr | `0xd0`, `0xd8` | `40 97 01 00` | `90 97 01 00` | XR LOAD filesz/memsz `0x19740` → `0x19790`: covers this 8-byte stub and the 72-byte stub of patch 3.4 that follows it |
 
 Procedure for a new build:
 
@@ -262,8 +263,9 @@ Procedure for a new build:
    by at least 8 zero bytes in the file and must not cross into the next segment's page.
    In 1.0.2 the segment ends at `0x2b740` and the next segment starts at `0x2c000`.
    The stub goes at `va + filesz`; the two 8-byte fields at `phdr + 32` and `phdr + 40`
-   (`p_filesz`, `p_memsz`) each increase by 8. Their file offsets are `e_phoff + i*56 + 32`
-   and `+40` for the segment's index `i` (in 1.0.2: `0xd0` and `0xd8`).
+   (`p_filesz`, `p_memsz`) each increase by the total stub size (8 here, plus 72 for patch
+   3.4, so 0x50 in all). Their file offsets are `e_phoff + i*56 + 32` and `+40` for the
+   segment's index `i` (in 1.0.2: `0xd0` and `0xd8`).
 3. Encode: `cbz wN, target` = `0x34000000 | (((target - site) >> 2 & 0x7ffff) << 5) | N`;
    `b target` = `0x14000000 | ((target - site) >> 2 & 0x3ffffff)`; `mov w0, wzr` = `0x2a1f03e0`;
    `mov w0, #1` = `0x52800020`; `nop` = `0xd503201f`. Store little-endian.
@@ -324,22 +326,137 @@ format field. Same register, same base.
 
 ---
 
+### 3.4 `libfiioaudio.so`: wait for the processing thread instead of dropping a buffer
+
+**Symptom fixed.** Real output delay grows by one HAL buffer (20 ms) on every hardware
+sample-rate switch (384 kHz for 48 kHz material, 352.8 kHz for 44.1/88.2 kHz) and never
+drains; after a day of mixed-rate Apple Music the AudioFlinger thread reports 600+ ms and
+audio trails the lyrics. On a switch, `stop_service_action()` flushes both rings and
+restarts the processing thread, which polls every 10 ms for 2.5 buffers of input before
+producing anything. The first real `processAudioEvent()` call after the two "skip frame"
+silence buffers races it: `get_player_buffer()` returns 0, the function returns 0, and the
+HAL's `out_write` logs `no more data to write bytes N`, skips the PAL write, and still
+reports N bytes to AudioFlinger. The input it just queued is never compensated for.
+
+**Anchors.**
+
+- Symbols (exported stubs): `processAudioEvent(char*, unsigned int, ...)` (also reached via
+  `FiiOAudioProcess`), `get_player_buffer(char*, int)`, `get_player_skip_frame_counter(...)`.
+- Strings in `processAudioEvent`: `%s:skip frame %d outSize %d`, `%s:fill zero data outSize %d`,
+  `%s:Insufficient audio processing efficiency ret = %d!`.
+- Runtime logs: `W/fiioprocess: processAudioEvent:Insufficient audio processing efficiency ret = 0!`
+  immediately followed by `W/AudioStream: out_write: ... no more data to write bytes 56448`,
+  once per switch to 352.8 kHz.
+
+**Find the site.** In `processAudioEvent`, after the skip-frame block, the stock code calls
+`get_player_buffer(outbuf, outSize)` and then decides what to do with an empty result:
+
+```
+adrp   x0, <globals page>            ; x0 = output buffer (1.0.2: 0xe6e751)
+mov    w1, w24                       ; w24 = outSize
+bl     get_player_buffer
+mov    w23, w0                       ; w23 = bytes produced
+...                                  ; (silence scan, DSD 0x69 fill)
+adrp   x19, <globals page>
+cbnz   w23, CONT                     ; data available -> normal path
+ldrb   w8, [x19, #0x74c]             ; "fill zero" flag (set once by processAudioInit)
+cbz    w8, CONT                      ;  <-- SITE D (1.0.2: 0x1b688): starved, flag clear -> return 0
+...                                  ; log "fill zero data", usleep(5000), mov w23, w24
+CONT:
+cbz    w23, WARN                     ; WARN logs "Insufficient ..." and returns 0
+strb   wzr, [x19, #0x74c]
+```
+
+Record the registers on your build: the output-size register (`w24`), the format register
+(`w25`, compared against `0x1a000002` for DSD earlier in the function), the result register
+(`w23`), the globals page register (`x19`), the output buffer address, and one callee-saved
+register that is dead from here to the epilogue (`w27` in 1.0.2; check that nothing between
+site D and `ret` reads it).
+
+**Patch.** Replace site D with an unconditional branch to a stub that retries
+`get_player_buffer` up to 10 times with `usleep(2000)` between attempts, then falls back to
+the stock decision. DSD keeps stock behaviour (its silence fill is a different byte pattern).
+
+| site | 1.0.2 offset | stock bytes | patched bytes | effect |
+|---|---|---|---|---|
+| D | `0x1b688` | `a8 01 00 34` (`cbz w8, 0x1b6bc`) | `30 40 00 14` (`b 0x2b748`) | always enter the stub |
+| stub | `0x2b748`..`0x2b790` | `00`×72 | see listing | retry, then stock paths |
+| phdr | `0xd0`, `0xd8` | see 3.2 | see 3.2 | one extension covers both stubs |
+
+Stub listing (1.0.2 addresses; `CONT` = `0x1b6bc`, `FILLZERO` = `0x1b68c`, the instruction
+after site D):
+
+```
+2b748  52800040  movz w0, #2
+2b74c  72a34000  movk w0, #0x1a00, lsl #16     ; w0 = AUDIO_FORMAT_DSD (0x1a000002)
+2b750  6b00033f  cmp  w25, w0
+2b754  54000180  b.eq FLAGCHK                  ; DSD: stock behaviour
+2b758  5280015b  movz w27, #10                 ; retries
+LOOP:
+2b75c  5280fa00  movz w0, #0x7d0               ; 2000 us
+2b760  97fffe60  bl   usleep@plt
+2b764  f0007200  adrp x0, <globals page>
+2b768  911d4400  add  x0, x0, #0x751           ; output buffer
+2b76c  2a1803e1  mov  w1, w24                  ; outSize
+2b770  97fffe6c  bl   get_player_buffer@plt
+2b774  2a0003f7  mov  w23, w0
+2b778  35f7fa37  cbnz w23, CONT                ; got data
+2b77c  7100077b  subs w27, w27, #1
+2b780  54fffee1  b.ne LOOP
+FLAGCHK:
+2b784  395d3268  ldrb w8, [x19, #0x74c]
+2b788  34f7f9a8  cbz  w8, CONT                 ; flag clear: stock warning path
+2b78c  17ffbfc0  b    FILLZERO                 ; flag set: stock fill-zero path
+```
+
+Encodings, all little-endian in the file: `movz wN, #imm` = `0x52800000 | imm<<5 | N`;
+`movk wN, #imm, lsl #16` = `0x72a00000 | imm<<5 | N`; `cmp wA, wB` = `0x6b00001f | B<<16 | A<<5`;
+`b.eq/b.ne target` = `0x54000000 | (((target-pc)>>2)&0x7ffff)<<5 | 0/1`;
+`bl target` = `0x94000000 | ((target-pc)>>2 & 0x3ffffff)`; `adrp xN, page` =
+`0x90000000 | (imm&3)<<29 | (imm>>2 & 0x7ffff)<<5 | N` with `imm = (page - (pc & ~0xfff)) >> 12`;
+`add x0, x0, #imm12` = `0x91000000 | imm12<<10`; `mov wD, wS` = `0x2a0003e0 | S<<16 | D`;
+`cbnz/cbz wN, target` = `0x35000000/0x34000000 | (((target-pc)>>2)&0x7ffff)<<5 | N`;
+`subs wN, wN, #1` = `0x71000400 | N<<5 | N`. The `bl` targets are the `.plt` entries of
+`usleep` and `get_player_buffer` (`objdump -d` names them).
+
+Procedure for a new build:
+
+1. Locate site D as above and note the register roles. If `get_player_buffer` is not called
+   right before the flag check, or the flag check is not a `cbz` to the `cbz w23` join point,
+   stop and re-derive.
+2. Place the stub after the 3.2 stub inside the extended executable segment (section 3.2
+   step 2 explains the padding and the `p_filesz`/`p_memsz` fields; extend by the total).
+3. Assemble with the formulas above. Cross-check at least `movz w0,#0x7d0`, `add x0,x0,#0x751`,
+   `mov w23,w0` and the `bl` encodings against identical instructions that already exist in
+   the stock disassembly (the processing loop and the fill-zero path contain all of them).
+4. Disassemble the result: site D must read `b <stub>`, the stub must match the listing
+   with your addresses, and nothing outside the listed offsets may differ from stock.
+
+Why 10 x 2 ms: the DSP holds two 20 ms fragments, so a write may safely wait 20 ms without
+an underrun; the processing thread wakes within 10 ms of having enough input and needs a
+few milliseconds to process. In testing no retry loop ever ran out.
+
+---
+
 ## 4. Adding a firmware to `customize.sh`
 
 `module/customize.sh` has one `do_patch` call per library:
 
 ```
-do_patch "<name>" <device path> "$MODPATH/<module path>" <STOCK_SHA256> <PATCHED_SHA256> "<OFF:OLD:NEW ...>"
+do_patch "<name>" <device path> "$MODPATH/<module path>" <STOCK_SHA256> <PATCHED_SHA256> "<OFF:OLD:NEW ...>" [<PREVIOUS_PATCHED_SHA256> "<previous OFF:OLD:NEW ...>"]
 ```
 
 Each spec is `offset:oldbytes:newbytes` in hex, bytes exactly as stored in the file
 (little-endian), no `0x` on the bytes. The installer:
 
-1. hashes the device's library and matches it against `STOCK_SHA256` (refuses otherwise,
-   with a distinct message if it sees `PATCHED_SHA256`, meaning an old module is still mounted);
+1. hashes the device's library: `STOCK_SHA256` is patched; `PATCHED_SHA256` is kept as is
+   (same version already mounted); the optional previous version's hash is un-patched back to
+   stock with its own spec applied in reverse and then patched (in-place upgrade); anything
+   else is refused;
 2. copies it into the module;
 3. for each spec, reads `len(old)/2` bytes at `offset`, aborts unless they equal `old`,
-   then writes `new`;
+   then writes `new` (keep `od -v` in that check: without it `od` collapses long runs of
+   identical bytes to `*`);
 4. hashes the result and aborts unless it equals `PATCHED_SHA256`;
 5. on any abort, deletes everything it staged so nothing is installed.
 
@@ -348,16 +465,17 @@ To add a firmware, build the patched files on the host first (sections 2 and 3),
 ```python
 # generate specs from your verified stock/patched pair; never type bytes by hand
 a = open('stock/libfiioaudio.so','rb').read(); b = open('patched/libfiioaudio.so','rb').read()
-regions = [(0xd0,8),(0xd8,8),(SITE_A,4),(SITE_B,4),(SITE_C,4),(STUB,8)]
+regions = [(0xd0,4),(0xd8,4),(SITE_A,4),(SITE_B,4),(SITE_C,4),(SITE_D,4),(STUB,0x50)]  # STUB covers 3.2 and 3.4
 diff = {i for i in range(len(a)) if a[i] != b[i]}
 assert diff <= {i for o,n in regions for i in range(o,o+n)}, "unexpected bytes differ"
 print(' '.join(f'{o:#x}:{a[o:o+n].hex()}:{b[o:o+n].hex()}' for o,n in regions))
 ```
 
-Then either add a second `case` arm keyed on the new stock hash (the current script
-supports one hash per library; the straightforward extension is a `case "$sum" in` with one
-arm per firmware selecting its own offset spec and patched hash) or, if the new firmware's
-library is byte-identical to a supported one (same hash), nothing needs adding.
+Then add a `case "$sum" in` arm keyed on the new stock hash selecting its own spec and
+patched hash (the script currently has one firmware per library; when you bump a patch, pass
+the old patched hash and old spec as the optional last two arguments so existing installs
+upgrade in place). If the new firmware's library is byte-identical to a supported one (same
+hash), nothing needs adding.
 
 Run `sh -n module/customize.sh` for syntax, then test the whole flow on the device:
 remove any installed copy of the module, reboot, confirm the stock hashes are live, install,
@@ -370,9 +488,15 @@ read the installer output, reboot, confirm the patched hashes are live.
 Build the probe once (`tools/build_probe.sh`, needs Android SDK build-tools and a JDK) and
 install it: `adb install -r probe/tsprobe.apk`. Grant nothing; it only plays a tone.
 
-Run every row below in **both OS and NOS mode** (switch in FiiO's audio settings). Capture
-`adb logcat -v threadtime` for the whole run and take `adb shell dumpsys media.audio_flinger`
-once during playback.
+`tools/regression.sh <label>` runs every row below over adb, applies the pass criteria in
+`tools/checks.ts`, and writes scrubbed logs plus a `summary.txt` to `regression-<label>-<date>/`.
+Run it once per output mode (Settings > Audio > PCM OUT MODE, "OS mode" / "NOS mode"); it takes
+about seven minutes and needs `bun`. `bun test` replays the checks against the committed
+red (v1.2) and green (v1.3) captures in `logs/` without a device. The table is the manual
+equivalent.
+
+A new patch is not done until a new check in `checks.ts` fails on the unpatched build and
+passes on the patched one, with both runs committed under `logs/`.
 
 | test | command | pass criteria |
 |---|---|---|
@@ -380,12 +504,13 @@ once during playback.
 | pause cycles, 44.1 kHz | same with `--ei rate 44100` | same |
 | new track every 6 s, 48 kHz | `--ei rate 48000 --ei bufms 500 --ei secs 60 --ei newtrackms 6000` | `head_minus_ts_ms` identical on every `TRACK n` |
 | new track every 6 s, 44.1 kHz | same with `--ei rate 44100` | same |
+| rate switches | start the probe ten times alternating `--ei rate 48000` and `--ei rate 44100` (`--ei secs 10`, 13 s apart); after each run read `dumpsys media.audio_flinger` for the active thread | `Threadloop write latency stats: ave=` within ±5 ms across all ten runs; `Sample rate:` alternates 384000/352800 and `disc=` increments once per run |
 
 In the logcat for each run:
 
 - `grep -c 'goto create retrack'` must be **0** (patch 1).
-- `grep -c 'no more data to write'` must be **0**, and `Insufficient audio processing
-  efficiency` must not appear after the first track (patch 2).
+- `grep -c 'no more data to write'` and `grep -c 'Insufficient audio processing efficiency'`
+  must both be **0** (patches 2 and 4).
 - No `F DEBUG` / crash entries for `audioserver` or `android.hardware.audio.service`.
 
 In the `dumpsys media.audio_flinger` excerpt for the active output thread (the one with
@@ -395,8 +520,10 @@ In the `dumpsys media.audio_flinger` excerpt for the active output thread (the o
 - `Threadloop write latency stats: ave=` a plausible positive number (roughly 80 to 200 ms
   on this device), not negative or in the millions.
 
-Reference values from 1.0.2 after the fix: OS 384 kHz thread `head_minus_ts_ms=87`,
-thread latency 87.6 ms; NOS 44.1 kHz `159`, 159 ms; NOS 48 kHz `148`, 148 ms.
+Reference values from 1.0.2 with v1.3 (`head_minus_ts_ms` / thread latency): OS 384 kHz
+84 to 87 / 80 to 88 ms; NOS 48 kHz 148 / 142 ms; NOS 44.1 kHz 158 / 156 ms. In NOS the thread runs at
+the track rate, so the two rates legitimately differ by one buffer's 8.8% length change; the
+script compares same-rate runs. All values stay flat across the ten switches.
 
 Then test by eye, in both modes:
 
@@ -406,6 +533,9 @@ Then test by eye, in both modes:
 3. Play 96 or 192 kHz content, then 44.1 kHz, then pause/resume. This exercises the
    "parameters actually changed" path, which still performs the full reset, so it must
    behave like stock (a brief mute at the change is normal).
+4. Alternate 44.1 kHz and 48 kHz tracks twenty times (or let Apple Music run for an hour on
+   a mixed playlist). Lyrics must stay in sync, and the thread latency in `dumpsys` must
+   not have moved.
 
 Finally confirm the fix is reversible: disable the module in Magisk, reboot, and check the
 three live hashes are back to stock.
@@ -420,13 +550,15 @@ Before opening a PR that adds a firmware or device, include in the description:
 - [ ] Stock and patched SHA-256 for all three libraries, matching the `customize.sh` entry.
 - [ ] For each patch site: the function name, the offset, the stock and patched
       disassembly lines (copy from `objdump` output on your files).
-- [ ] Probe logs for all four probe rows in **both** OS and NOS (`adb logcat -s TSPROBE`
+- [ ] Probe logs for all probe rows in **both** OS and NOS (`adb logcat -s TSPROBE`
       output only; it contains no identifiers), named like the files in `logs/`.
 - [ ] The `dumpsys media.audio_flinger` excerpt for the active thread (sample rate, HAL
       format, `Timestamp stats`, `Threadloop write latency` lines only). Do **not** attach a
       full `dumpsys` or full `logcat`: they contain the device serial, account names, and
       package lists. If you must quote more, scrub serial numbers, IMEI/board numbers,
       Wi-Fi SSIDs, and account e-mail addresses first.
+- [ ] `tools/regression.sh` output folders for OS and NOS on the new build (green), and the
+      failing `summary.txt` from the previous build (red), committed under `logs/`.
 - [ ] Which modes and tests you ran by eye (section 5), and the result of the rollback check.
 - [ ] Confirmation that the PR contains no `.img`, `.so`, or other firmware-derived binaries
       (the `.gitignore` blocks the common cases; check `git status` anyway).

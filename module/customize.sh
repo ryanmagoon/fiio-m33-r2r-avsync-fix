@@ -15,6 +15,12 @@
 #   compute the presentation position with the HAL's own input frame size
 #   instead of the client's; fixes the position running at 2x in NOS mode,
 #   where the framework thread is 16-bit but the HAL writes 32-bit.  1 instruction.
+# Patch 4: /vendor/lib64/libfiioaudio.so  (processAudioEvent)
+#   when the processing thread has not produced output yet (happens on every
+#   hardware sample-rate switch), wait up to 10 x 2 ms for it instead of
+#   returning 0, which made the HAL report the buffer as written without
+#   writing it and grew the real latency by one buffer (20 ms) per switch.
+#   1 branch retargeted, an 18-instruction stub in the padding, segment +0x48.
 
 SKIPUNZIP=0
 
@@ -25,24 +31,37 @@ patch_words() {
   f="$1"; shift
   for spec in $*; do
     off=$((${spec%%:*})); rest=${spec#*:}; old=${rest%%:*}; new=${rest#*:}
-    have=$(dd if="$f" bs=1 skip=$off count=$(( ${#old} / 2 )) 2>/dev/null | od -An -tx1 | tr -d ' \n')
+    have=$(dd if="$f" bs=1 skip=$off count=$(( ${#old} / 2 )) 2>/dev/null | od -An -v -tx1 | tr -d ' \n')
     [ "$have" = "$old" ] || fail "Unexpected bytes at offset $off in $(basename $f): got '$have', expected '$old'"
     printf "$(echo "$new" | sed 's/../\\x&/g')" | dd of="$f" bs=1 seek=$off count=$(( ${#new} / 2 )) conv=notrunc 2>/dev/null || fail "write failed at $off"
   done
 }
 
-do_patch() {  # NAME SRC DST STOCK_SHA PATCHED_SHA SPECS
-  name=$1; src=$2; dst=$3; stock=$4; expect=$5; specs=$6
+# unpatch_words FILE SPECS : apply SPECS in reverse (NEW -> OLD) to recover the stock bytes
+unpatch_words() {
+  f="$1"; shift; inv=""
+  for spec in $*; do
+    off=${spec%%:*}; rest=${spec#*:}; old=${rest%%:*}; new=${rest#*:}
+    inv="$inv $off:$new:$old"
+  done
+  patch_words "$f" "$inv"
+}
+
+do_patch() {  # NAME SRC DST STOCK_SHA PATCHED_SHA SPECS [PREV_SHA PREV_SPECS]
+  name=$1; src=$2; dst=$3; stock=$4; expect=$5; specs=$6; prev=$7; prevspecs=$8
   ui_print "- $name: reading $src"
   [ -f "$src" ] || fail "$src not found"
   sum=$(sha256sum "$src" | cut -d' ' -f1); ui_print "  SHA-256: $sum"
-  case "$sum" in
-    $stock) ;;
-    $expect) fail "$src is already patched. An older version of this module is probably still active: remove it, reboot, then reinstall." ;;
-    *) fail "Unknown $name build. Only FiiO M33 R2R firmware 1.0.2 is supported. Please open an issue with your firmware version and this hash." ;;
-  esac
   mkdir -p "$(dirname "$dst")"; cp -f "$src" "$dst" || fail "copy failed"
-  patch_words "$dst" "$specs"
+  case "$sum" in
+    $stock) patch_words "$dst" "$specs" ;;
+    $expect) ui_print "  already at this module's version, keeping" ;;
+    $prev) ui_print "  previous module version found, upgrading"
+           unpatch_words "$dst" "$prevspecs"
+           [ "$(sha256sum "$dst" | cut -d' ' -f1)" = "$stock" ] || fail "$name: could not recover stock bytes"
+           patch_words "$dst" "$specs" ;;
+    *) fail "Unknown $name build. Only FiiO M33 R2R firmware 1.0.2 is supported. If an older version of this module is active, disable it and reboot first. Otherwise open an issue with your firmware version and this hash." ;;
+  esac
   got=$(sha256sum "$dst" | cut -d' ' -f1)
   [ "$got" = "$expect" ] || fail "$name: patched hash mismatch ($got)"
   ui_print "  patched OK: $got"
@@ -56,6 +75,8 @@ do_patch "libaudioclient.so" /system/lib64/libaudioclient.so "$MODPATH/system/li
 
 do_patch "libfiioaudio.so" /vendor/lib64/libfiioaudio.so "$MODPATH/system/vendor/lib64/libfiioaudio.so" \
   2fbb367bfcff06e0fd1b2d94ad994edacee27280792d5b74d202d8a50d59d563 \
+  286523a244093ee48b3e3ad80904488cc1943e189e3bf6d8eb4be3d18d1c1cac \
+  "0xd0:40970100:90970100 0xd8:40970100:90970100 0x16574:9f010071:6c8e0a34 0x165b4:e0079f1a:20008052 0x1adf4:09011d39:1f2003d5 0x1b688:a8010034:30400014 0x2b740:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000:e0031f2aa3abff17400080520040a3723f03006b800100545b01805200fa805260feff97007200f000441d91e103182a6cfeff97f703002a37faf7357b070071e1feff5468325d39a8f9f734c0bfff17" \
   a0203d703185ea30bf048887fc22b3037acf148d13f23f7038f8152a77ddd191 \
   "0xd0:4097010000000000:4897010000000000 0xd8:4097010000000000:4897010000000000 0x16574:9f010071:6c8e0a34 0x165b4:e0079f1a:20008052 0x1adf4:09011d39:1f2003d5 0x2b740:0000000000000000:e0031f2aa3abff17"
 

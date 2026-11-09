@@ -11,5 +11,10 @@ that the playback head has not passed; it cannot legitimately exceed the buffer 
 | 10 YouTube Shorts, AudioFlinger thread write latency | 88 ms rising to 521 ms | 87.6 ms flat | `audioflinger_thread_stats.md` |
 | NOS mode, 44.1 kHz, AudioFlinger timestamp rate | 2.04x | 1.01x | `nos_44k1_before_hal_patch_probe_cycles.log`, `nos_44k1_after_patch_probe_cycles.log` |
 | OS mode, 48 kHz, module v1.2 | | 1.01x, 87.6 ms | `os_48k_v1.2_probe_cycles.log` |
+| ten 48 kHz/44.1 kHz switches, AudioFlinger thread write latency | +25 to +33 ms per switch to 352.8 kHz, 688 ms after 23 h | 80 ms flat | `rate_switch_latency_v1.2_vs_v1.3.md` |
 
 Logs are `TSPROBE` logcat lines only, with pids and device identifiers removed.
+
+`regression-v1.3-red/` is `tools/regression.sh` run on v1.2 the same day (three checks fail:
+44.1 kHz pause cycles, rate switches, log scan). `regression-v1.3-os/` and `regression-v1.3-nos/`
+are the same suite on v1.3, all green. `bun test` replays the checks against these folders.

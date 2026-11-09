@@ -2,8 +2,10 @@
 
 A Magisk module that fixes audio running ahead of video and lyrics on the FiiO M33 R2R.
 On stock firmware the gap grows every time you pause and resume, and again with every new
-clip in apps that create a fresh player per item (YouTube Shorts, playlists). Only a reboot
-clears it.
+clip in apps that create a fresh player per item (YouTube Shorts, playlists). Separately,
+every switch between 44.1 kHz and 48 kHz material adds about 20 ms of real output delay that
+never drains, so after hours of mixed playback audio trails the lyrics. Only a reboot clears
+any of it.
 
 The module ships **no FiiO binaries**: at install time it verifies the device's own audio
 libraries by SHA-256, patches a handful of instructions in copies of them, and mounts the
@@ -18,7 +20,8 @@ copies systemlessly. If any check fails it installs nothing.
 - **Device:** FiiO M33 R2R. Other FiiO Android DAPs are untested; see [PORTING.md](PORTING.md).
 - **Firmware:** 1.0.2 (build `FiiO04281702`). The installer refuses any other build.
 - **Symptom:** on the wired headphone output, audio leads video in YouTube and other
-  players, worse after each pause/resume and with every Short. Both OS and NOS modes.
+  players, worse after each pause/resume and with every Short; or audio falls behind
+  lyrics after hours of use (Apple Music). Both OS and NOS modes.
 - **Requirements:** unlocked bootloader (the M33 R2R ships unlocked), `adb` and `fastboot`,
   willingness to root with Magisk.
 
@@ -46,7 +49,8 @@ copies systemlessly. If any check fails it installs nothing.
 5. **Install the module.** Download the zip from the
    [Releases page](https://github.com/ryanmagoon/fiio-m33-r2r-avsync-fix/releases), then in
    Magisk open Modules, "Install from storage", pick the zip, read the installer output
-   (it prints each library's hash and "patched OK"), and reboot.
+   (it prints each library's hash and "patched OK"), and reboot. Upgrading from an earlier
+   version works the same way: install the new zip over it and reboot.
 
 Verify (expect the three "after patch" hashes from the table below):
 
@@ -64,7 +68,7 @@ Verify (expect the three "after patch" hashes from the table below):
 | library | firmware 1.0.2 stock SHA-256 | after patch |
 |---|---|---|
 | `/system/lib64/libaudioclient.so` | `221084582f2ed50fca14a04918e301e530b63e0343b94028a7c5cc48623532d7` | `fce12ea84fce63aa12f6b593d6a87dcdc2797fe5e0e5520861c87247f1199173` |
-| `/vendor/lib64/libfiioaudio.so` | `2fbb367bfcff06e0fd1b2d94ad994edacee27280792d5b74d202d8a50d59d563` | `a0203d703185ea30bf048887fc22b3037acf148d13f23f7038f8152a77ddd191` |
+| `/vendor/lib64/libfiioaudio.so` | `2fbb367bfcff06e0fd1b2d94ad994edacee27280792d5b74d202d8a50d59d563` | `286523a244093ee48b3e3ad80904488cc1943e189e3bf6d8eb4be3d18d1c1cac` |
 | `/vendor/lib64/hw/audio.primary.bengal.so` | `855df110b8d7d2b5b0d01354d78bec6a0b9cc9933d1a7661c17ae49587bbe6d2` | `d16c987bceea3d184cb19c0f9e25de5c89dcc50c10c73817dc56d1615997b3ac` |
 
 **Disable the module before a firmware update.** An update replaces `init_boot` (removing
@@ -73,11 +77,13 @@ it is listed here.
 
 **On 1.0.3 or another build?** Open an issue titled with your firmware version and paste
 the output of the `sha256sum` command above plus `adb shell getprop ro.build.fingerprint`,
-or port the patches yourself with [PORTING.md](PORTING.md).
+or port the patches yourself with [PORTING.md](PORTING.md). `tools/regression.sh` runs the
+automated checks for all four fixes over adb in about seven minutes per output mode, and
+`bun test` replays them against the committed v1.2 (failing) and v1.3 (passing) captures.
 
 ## How it works
 
-Three defects in FiiO's modifications to Android's audio stack, all between an app's
+Four defects in FiiO's modifications to Android's audio stack, all between an app's
 `AudioTrack` and the DAC. None is in the DAC or the FPGA.
 
 - **`libaudioclient.so`** recreates the server-side track on every `start()` when the app's
@@ -88,6 +94,12 @@ Three defects in FiiO's modifications to Android's audio stack, all between an a
   FiiO's AudioFlinger issues on every new track even when nothing changed. About 40 ms of
   audio is lost from the count per track, permanently. Patch: reset only when parameters
   actually change.
+- **`libfiioaudio.so`**, second defect: after a real hardware rate change (384 kHz for 48 kHz
+  material, 352.8 kHz for 44.1 kHz) its processing thread restarts and is late with its
+  first output. The library then returns zero bytes, and the HAL tells AudioFlinger the
+  buffer was written anyway. The unwritten 20 ms stays queued forever, so the real delay
+  ratchets up on every switch (688 ms after a day of Apple Music). Patch: wait up to 20 ms
+  for the thread instead of returning zero.
 - **`audio.primary.bengal.so`** computes the presentation position with the client's frame
   size while writing 32-bit, so in NOS mode (16-bit thread) the position runs at 2x. Patch:
   use the HAL's own format.
