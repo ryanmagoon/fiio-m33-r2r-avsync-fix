@@ -77,7 +77,7 @@ adb shell getprop ro.product.ota.package_name
 ```
 
 Record the firmware version, the build fingerprint, and the three hashes. These go into
-the `customize.sh` table and the README's supported-firmware table.
+the `customize.sh` table and the README's Firmware table.
 
 Note on the HAL name: `audio.primary.bengal.so` is Qualcomm's AudioReach HAL for the
 Bengal/Khaje SoC in the M33 R2R. On another DAP, list `/vendor/lib64/hw/audio.primary.*.so`
