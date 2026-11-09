@@ -1,0 +1,50 @@
+run rate=48000
+Sample rate: 48000 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=48506 disc=165 cold=2 nRdy=0 err=0 rate=1 jitterMs(ave=-0.0471703 std=2.13894 min=-41.4389 max=27.1283) localSR(48000.1, 4.95245e-10) correct
+Threadloop write latency stats: ave=148.758 std=0.411925 min=143.201 max=149.029
+run rate=44100
+Sample rate: 44100 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=48818 disc=166 cold=2 nRdy=0 err=0 rate=1.00984 jitterMs(ave=-0.10067 std=2.99818 min=-41.4389 max=27.1283) localSR(44112, 4.68269e-06) corre
+Threadloop write latency stats: ave=158.986 std=6.1208 min=118.063 max=170.719
+run rate=48000
+Sample rate: 48000 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=49143 disc=170 cold=2 nRdy=0 err=0 rate=1.00001 jitterMs(ave=-0.1041 std=3.14488 min=-41.4389 max=27.1283) localSR(48000.1, 4.61385e-10) corr
+Threadloop write latency stats: ave=148.617 std=2.31468 min=109.299 max=149.033
+run rate=44100
+Sample rate: 44100 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=49457 disc=171 cold=2 nRdy=0 err=0 rate=1.00982 jitterMs(ave=-0.142054 std=3.58636 min=-41.4389 max=27.1283) localSR(44112, 4.64268e-06) corr
+Threadloop write latency stats: ave=158.986 std=6.10086 min=118.129 max=171.274
+run rate=48000
+Sample rate: 48000 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=49780 disc=173 cold=2 nRdy=0 err=0 rate=1.0099 jitterMs(ave=-0.166125 std=3.65424 min=-41.4389 max=27.1283) localSR(48012.7, 2.86784e-06) cor
+Threadloop write latency stats: ave=148.444 std=3.8359 min=109.275 max=168.664
+run rate=44100
+Sample rate: 44100 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=50098 disc=175 cold=2 nRdy=0 err=0 rate=1.00943 jitterMs(ave=-0.183505 std=3.91443 min=-41.4389 max=27.1283) localSR(44112, 4.82103e-06) corr
+Threadloop write latency stats: ave=159.03 std=6.13608 min=117.828 max=174.133
+run rate=48000
+Sample rate: 48000 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=50421 disc=177 cold=2 nRdy=0 err=0 rate=1.00988 jitterMs(ave=-0.199871 std=3.88508 min=-41.4389 max=27.1283) localSR(48012.8, 2.92262e-06) co
+Threadloop write latency stats: ave=148.451 std=3.83927 min=109.282 max=169.67
+run rate=44100
+Sample rate: 44100 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=50740 disc=181 cold=2 nRdy=0 err=0 rate=1.00051 jitterMs(ave=-0.181879 std=4.00367 min=-41.4389 max=27.1283) localSR(44100.4, 1.80182e-06) co
+Threadloop write latency stats: ave=159.19 std=5.3355 min=116.388 max=165.812
+run rate=48000
+Sample rate: 48000 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=51065 disc=185 cold=2 nRdy=0 err=0 rate=0.999998 jitterMs(ave=-0.157965 std=3.85236 min=-41.4389 max=27.1283) localSR(48000.1, 7.77244e-10) c
+Threadloop write latency stats: ave=148.602 std=2.37406 min=109.3 max=149.063
+run rate=44100
+Sample rate: 44100 Hz
+HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+Timestamp stats: n=51377 disc=186 cold=2 nRdy=0 err=0 rate=1.00942 jitterMs(ave=-0.178148 std=4.06173 min=-41.4389 max=27.1283) localSR(44111.8, 4.75178e-06) co
+Threadloop write latency stats: ave=159.036 std=6.13965 min=118.269 max=175.98

@@ -1,0 +1,12 @@
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (44100 >> 48000), hal rate:48000  hw rate: 48000 ret:5 standby 1
+D AudioStream: SetParameters(): sample_rate change (48000 >> 44100), hal rate:44100  hw rate: 44100 ret:5 standby 1

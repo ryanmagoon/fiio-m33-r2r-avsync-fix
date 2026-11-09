@@ -1,0 +1,8 @@
+== v1.2 (red run before v1.3): Mon Nov  9 00:30:02 EST 2026
+pause cycles 48000           PASS queued_ms=[250, 250, 250, 250, 250] head_minus_ts_ms=[85, 83, 84, 84, 84]
+pause cycles 44100           FAIL queued_ms=[250, 250, 250, 250, 250] head_minus_ts_ms=[105, 125, 145, 165, 185]
+new track every 6 s          PASS head_minus_ts_ms per track=[173, 176, 176, 176, 176, 177, 176, 174, 176, 178]
+rate switches                FAIL latency_ms={384000: [174.0, 192.4, 210.8, 229.0, 247.6], 352800: [202.2, 221.9, 242.4, 262.3, 282.3]} max_spread_at_same_rate=80.1 disc=[41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+timestamp rate               PASS rate=[1.0056, 1.00552, 1.0055, 1.0055, 1.00556, 1.00555, 1.00557, 1.00564, 1.00562, 1.00557]
+log scan                     FAIL 20 offending lines, see hal.log
+== 3 passed, 3 failed.

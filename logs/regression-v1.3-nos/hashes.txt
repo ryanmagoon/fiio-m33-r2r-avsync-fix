@@ -1,0 +1,3 @@
+fce12ea84fce63aa12f6b593d6a87dcdc2797fe5e0e5520861c87247f1199173  /system/lib64/libaudioclient.so
+286523a244093ee48b3e3ad80904488cc1943e189e3bf6d8eb4be3d18d1c1cac  /vendor/lib64/libfiioaudio.so
+d16c987bceea3d184cb19c0f9e25de5c89dcc50c10c73817dc56d1615997b3ac  /vendor/lib64/hw/audio.primary.bengal.so

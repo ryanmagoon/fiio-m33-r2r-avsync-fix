@@ -1,0 +1,143 @@
+I TSPROBE : START newtrack enc=2 rate=48000 bufFrames=24000 newTrackMs=6000
+I TSPROBE : TRACK 1 created session=329
+I TSPROBE : TRACK 1 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 1 age=0.5 written=36960 head=24960 queued_ms=250 ts_ok=true ts_pos_now=20883 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 1 age=1.0 written=61920 head=49920 queued_ms=250 ts_ok=true ts_pos_now=45837 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=1.6 written=86880 head=74880 queued_ms=250 ts_ok=true ts_pos_now=70823 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 1 age=2.1 written=111840 head=99840 queued_ms=250 ts_ok=true ts_pos_now=95767 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 1 age=2.6 written=136800 head=124800 queued_ms=250 ts_ok=true ts_pos_now=120716 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=3.1 written=161760 head=149760 queued_ms=250 ts_ok=true ts_pos_now=145680 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=3.6 written=186720 head=174720 queued_ms=250 ts_ok=true ts_pos_now=170640 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=4.2 written=211680 head=199680 queued_ms=250 ts_ok=true ts_pos_now=195595 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=4.7 written=236640 head=224640 queued_ms=250 ts_ok=true ts_pos_now=220583 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 1 age=5.2 written=261600 head=249600 queued_ms=250 ts_ok=true ts_pos_now=245516 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=5.7 written=286560 head=274560 queued_ms=250 ts_ok=true ts_pos_now=270479 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 1 age=6.3 written=311520 head=299520 queued_ms=250 ts_ok=true ts_pos_now=295462 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 1 released
+I TSPROBE : TRACK 2 created session=337
+I TSPROBE : TRACK 2 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 2 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33358 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 2 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58325 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83278 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 2 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108241 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133224 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158156 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 2 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183128 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208095 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233047 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=258006 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 2 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282960 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 2 released
+I TSPROBE : TRACK 3 created session=345
+I TSPROBE : TRACK 3 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 3 age=0.7 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33358 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58313 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83274 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108240 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133199 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=3.3 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158160 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183126 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 3 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208079 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233040 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257997 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 3 age=5.9 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282961 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 3 released
+I TSPROBE : TRACK 4 created session=353
+I TSPROBE : TRACK 4 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 4 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33348 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58316 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83286 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 4 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108237 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=2.9 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133208 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 4 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158159 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183131 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 4 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208075 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233039 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=5.5 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257998 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282960 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 4 released
+I TSPROBE : TRACK 5 created session=361
+I TSPROBE : TRACK 5 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 5 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33357 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58315 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83272 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108233 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133195 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158153 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183114 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208094 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 5 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233039 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257998 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282958 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 5 released
+I TSPROBE : TRACK 6 created session=369
+I TSPROBE : TRACK 6 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 6 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33354 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58320 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83280 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108239 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133191 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158174 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 6 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183114 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208077 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233035 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=258023 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 6 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282954 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 6 released
+I TSPROBE : TRACK 7 created session=377
+I TSPROBE : TRACK 7 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 7 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33357 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58313 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83273 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108236 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133212 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 7 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158151 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183113 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208081 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 7 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233041 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 7 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257993 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282954 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 7 released
+I TSPROBE : TRACK 8 created session=385
+I TSPROBE : TRACK 8 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 8 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33351 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58317 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83304 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 8 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108233 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133200 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158158 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183121 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 8 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208076 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233038 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257994 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 8 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282961 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 8 released
+I TSPROBE : TRACK 9 created session=393
+I TSPROBE : TRACK 9 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 9 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33361 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 9 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58314 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83275 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108237 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133196 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158153 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183110 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208088 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 9 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233031 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=257993 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282956 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 9 released
+I TSPROBE : TRACK 10 created session=401
+I TSPROBE : TRACK 10 age=0.0 written=480 head=0 queued_ms=10 ts_ok=false ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : TRACK 10 age=0.8 written=49440 head=37440 queued_ms=250 ts_ok=true ts_pos_now=33348 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=1.3 written=74400 head=62400 queued_ms=250 ts_ok=true ts_pos_now=58310 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=1.8 written=99360 head=87360 queued_ms=250 ts_ok=true ts_pos_now=83272 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=2.3 written=124320 head=112320 queued_ms=250 ts_ok=true ts_pos_now=108232 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=2.8 written=149280 head=137280 queued_ms=250 ts_ok=true ts_pos_now=133193 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=3.4 written=174240 head=162240 queued_ms=250 ts_ok=true ts_pos_now=158192 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 10 age=3.9 written=199200 head=187200 queued_ms=250 ts_ok=true ts_pos_now=183149 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : TRACK 10 age=4.4 written=224160 head=212160 queued_ms=250 ts_ok=true ts_pos_now=208071 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=4.9 written=249120 head=237120 queued_ms=250 ts_ok=true ts_pos_now=233039 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=5.4 written=274080 head=262080 queued_ms=250 ts_ok=true ts_pos_now=258000 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 age=6.0 written=299040 head=287040 queued_ms=250 ts_ok=true ts_pos_now=282957 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : TRACK 10 released
+I TSPROBE : END

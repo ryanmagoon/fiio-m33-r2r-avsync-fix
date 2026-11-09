@@ -1,0 +1,8 @@
+== os: Mon Nov  9 00:48:06 EST 2026
+pause cycles 48000           PASS queued_ms=[250,250,250,250,250] head_minus_ts_ms=[82,80,84,84,84]
+pause cycles 44100           PASS queued_ms=[250,250,250,250,250] head_minus_ts_ms=[85,85,85,85,85]
+new track every 6 s          PASS head_minus_ts_ms per track=[84,85,84,85,85,85,85,84,85,85]
+rate switches                PASS latency_ms 384000:[82.4,82.2,82.2,82.3,82.2] 352800:[82.4,81.0,82.4,82.2,82.4] max_spread_at_same_rate=1.4 disc=[90,91,92,93,94,95,96,97,98,99]
+timestamp rate               PASS rate=[1.00563,1.0056,1.00555,1.0056,1.00554,1.0055,1.00571,1.00555,1.00568,1.00556]
+log scan                     PASS no offending lines
+== 6 passed, 0 failed.

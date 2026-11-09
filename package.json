@@ -1,0 +1,9 @@
+{
+  "name": "fiio-m33-r2r-avsync-fix",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test tools",
+    "regression": "tools/regression.sh"
+  }
+}

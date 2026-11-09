@@ -1,0 +1,84 @@
+I TSPROBE : START enc=2 rate=48000 bufFrames=24000 click=false cycleMs=12000 getLatency=609
+I TSPROBE : t=0.0 cycles=0 paused=false written=480 head=0 queued_ms=10 ts_ok=false ts_age_ms=-1 ts_pos_now=-1 head_minus_ts_ms=-1 written_minus_ts_ms=-1
+I TSPROBE : t=1.0 cycles=0 paused=false written=24480 head=12480 queued_ms=250 ts_ok=true ts_age_ms=1 ts_pos_now=8287 head_minus_ts_ms=87 written_minus_ts_ms=337
+I TSPROBE : t=2.1 cycles=0 paused=false written=74400 head=62400 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=58327 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=3.1 cycles=0 paused=false written=124320 head=112320 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=108246 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=4.2 cycles=0 paused=false written=174240 head=162240 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=158163 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=5.2 cycles=0 paused=false written=224160 head=212160 queued_ms=250 ts_ok=true ts_age_ms=1 ts_pos_now=207972 head_minus_ts_ms=87 written_minus_ts_ms=337
+I TSPROBE : t=6.2 cycles=0 paused=false written=274080 head=262080 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=257991 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=7.3 cycles=0 paused=false written=324000 head=312000 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=307909 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=8.3 cycles=0 paused=false written=373920 head=361920 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=357839 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=9.4 cycles=0 paused=false written=423840 head=411840 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=407763 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=10.4 cycles=0 paused=false written=473760 head=461760 queued_ms=250 ts_ok=true ts_age_ms=7 ts_pos_now=457830 head_minus_ts_ms=81 written_minus_ts_ms=331
+I TSPROBE : t=11.4 cycles=0 paused=false written=523680 head=511680 queued_ms=250 ts_ok=true ts_age_ms=6 ts_pos_now=507734 head_minus_ts_ms=82 written_minus_ts_ms=332
+I TSPROBE : PAUSE cycle=1
+I TSPROBE : t=12.4 cycles=0 paused=true written=561120 head=550080 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=550078 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : t=13.4 cycles=0 paused=true written=561120 head=550080 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=550078 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : t=14.4 cycles=0 paused=true written=561120 head=550080 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=550078 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : t=15.4 cycles=0 paused=true written=561120 head=550080 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=550080 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : RESUME cycle=1
+I TSPROBE : t=16.5 cycles=1 paused=false written=574560 head=562560 queued_ms=250 ts_ok=true ts_age_ms=2 ts_pos_now=558427 head_minus_ts_ms=86 written_minus_ts_ms=336
+I TSPROBE : t=17.6 cycles=1 paused=false written=624480 head=612480 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=608409 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=18.6 cycles=1 paused=false written=674400 head=662400 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=658320 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=19.6 cycles=1 paused=false written=724320 head=712320 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=708235 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=20.7 cycles=1 paused=false written=774240 head=762240 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=758160 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=21.7 cycles=1 paused=false written=824160 head=812160 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=808076 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=22.8 cycles=1 paused=false written=874080 head=862080 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=858004 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=23.8 cycles=1 paused=false written=924000 head=912000 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=907919 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=24.8 cycles=1 paused=false written=973920 head=961920 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=957843 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=25.9 cycles=1 paused=false written=1023840 head=1011840 queued_ms=250 ts_ok=true ts_age_ms=7 ts_pos_now=1007906 head_minus_ts_ms=81 written_minus_ts_ms=331
+I TSPROBE : t=26.9 cycles=1 paused=false written=1073760 head=1061760 queued_ms=250 ts_ok=true ts_age_ms=7 ts_pos_now=1057824 head_minus_ts_ms=82 written_minus_ts_ms=332
+I TSPROBE : t=28.0 cycles=1 paused=false written=1123680 head=1111680 queued_ms=250 ts_ok=true ts_age_ms=8 ts_pos_now=1107805 head_minus_ts_ms=80 written_minus_ts_ms=330
+I TSPROBE : PAUSE cycle=2
+I TSPROBE : t=29.0 cycles=1 paused=true written=1138080 head=1125120 queued_ms=270 ts_ok=true ts_age_ms=0 ts_pos_now=1125119 head_minus_ts_ms=0 written_minus_ts_ms=270
+I TSPROBE : t=30.0 cycles=1 paused=true written=1138080 head=1125120 queued_ms=270 ts_ok=true ts_age_ms=0 ts_pos_now=1125118 head_minus_ts_ms=0 written_minus_ts_ms=270
+I TSPROBE : t=31.0 cycles=1 paused=true written=1138080 head=1125120 queued_ms=270 ts_ok=true ts_age_ms=0 ts_pos_now=1125119 head_minus_ts_ms=0 written_minus_ts_ms=270
+I TSPROBE : t=32.0 cycles=1 paused=true written=1138080 head=1125120 queued_ms=270 ts_ok=true ts_age_ms=0 ts_pos_now=1125117 head_minus_ts_ms=0 written_minus_ts_ms=270
+I TSPROBE : RESUME cycle=2
+I TSPROBE : t=33.0 cycles=2 paused=false written=1174560 head=1162560 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1158482 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=34.1 cycles=2 paused=false written=1224480 head=1212416 queued_ms=251 ts_ok=true ts_age_ms=3 ts_pos_now=1208395 head_minus_ts_ms=83 written_minus_ts_ms=335
+I TSPROBE : t=35.1 cycles=2 paused=false written=1274400 head=1262400 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1258322 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=36.1 cycles=2 paused=false written=1324320 head=1312320 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1308241 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=37.2 cycles=2 paused=false written=1374240 head=1362240 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1358165 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=38.2 cycles=2 paused=false written=1424160 head=1412160 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1408080 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=39.3 cycles=2 paused=false written=1474080 head=1462080 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1458001 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=40.3 cycles=2 paused=false written=1524000 head=1512000 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1507920 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=41.3 cycles=2 paused=false written=1573920 head=1561920 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1557858 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=42.4 cycles=2 paused=false written=1623840 head=1611840 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1607763 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=43.4 cycles=2 paused=false written=1673760 head=1661760 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1657685 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=44.5 cycles=2 paused=false written=1723680 head=1711680 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1707602 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : PAUSE cycle=3
+I TSPROBE : t=45.5 cycles=2 paused=true written=1723680 head=1712640 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=1712639 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : t=46.5 cycles=2 paused=true written=1723680 head=1712640 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=1712639 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : t=47.5 cycles=2 paused=true written=1723680 head=1712640 queued_ms=230 ts_ok=true ts_age_ms=0 ts_pos_now=1712639 head_minus_ts_ms=0 written_minus_ts_ms=230
+I TSPROBE : RESUME cycle=3
+I TSPROBE : t=48.5 cycles=3 paused=false written=1724160 head=1712640 queued_ms=240 ts_ok=true ts_age_ms=0 ts_pos_now=1712639 head_minus_ts_ms=0 written_minus_ts_ms=240
+I TSPROBE : t=49.5 cycles=3 paused=false written=1774560 head=1762560 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1758481 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=50.6 cycles=3 paused=false written=1824480 head=1812480 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1808402 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=51.6 cycles=3 paused=false written=1874400 head=1862400 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1858322 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=52.7 cycles=3 paused=false written=1924320 head=1912320 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=1908247 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=53.7 cycles=3 paused=false written=1974240 head=1962240 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=1958155 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=54.7 cycles=3 paused=false written=2024160 head=2012160 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2008085 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=55.8 cycles=3 paused=false written=2074080 head=2062080 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2058004 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=56.8 cycles=3 paused=false written=2124000 head=2112000 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2107926 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=57.9 cycles=3 paused=false written=2173920 head=2161920 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2157841 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=58.9 cycles=3 paused=false written=2223840 head=2211840 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2207766 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=59.9 cycles=3 paused=false written=2273760 head=2261760 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2257684 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : PAUSE cycle=4
+I TSPROBE : t=60.9 cycles=3 paused=true written=2303520 head=2287680 queued_ms=330 ts_ok=true ts_age_ms=0 ts_pos_now=2287680 head_minus_ts_ms=0 written_minus_ts_ms=330
+I TSPROBE : t=62.0 cycles=3 paused=true written=2303520 head=2287680 queued_ms=330 ts_ok=true ts_age_ms=0 ts_pos_now=2287678 head_minus_ts_ms=0 written_minus_ts_ms=330
+I TSPROBE : t=63.0 cycles=3 paused=true written=2303520 head=2287680 queued_ms=330 ts_ok=true ts_age_ms=0 ts_pos_now=2287677 head_minus_ts_ms=0 written_minus_ts_ms=330
+I TSPROBE : t=64.0 cycles=3 paused=true written=2303520 head=2287680 queued_ms=330 ts_ok=true ts_age_ms=0 ts_pos_now=2287679 head_minus_ts_ms=0 written_minus_ts_ms=330
+I TSPROBE : RESUME cycle=4
+I TSPROBE : t=65.0 cycles=4 paused=false written=2324640 head=2312640 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2308570 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=66.1 cycles=4 paused=false written=2374560 head=2362560 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2358488 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=67.1 cycles=4 paused=false written=2424480 head=2412480 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2408409 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=68.2 cycles=4 paused=false written=2474400 head=2462400 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2458323 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=69.2 cycles=4 paused=false written=2524320 head=2512320 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2508240 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=70.2 cycles=4 paused=false written=2574240 head=2562240 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2558162 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=71.3 cycles=4 paused=false written=2624160 head=2612160 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=2608078 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=72.3 cycles=4 paused=false written=2674080 head=2662080 queued_ms=250 ts_ok=true ts_age_ms=3 ts_pos_now=2657999 head_minus_ts_ms=85 written_minus_ts_ms=335
+I TSPROBE : t=73.4 cycles=4 paused=false written=2724000 head=2712000 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2707921 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=74.4 cycles=4 paused=false written=2773920 head=2761920 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2757845 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : t=75.4 cycles=4 paused=false written=2823840 head=2811840 queued_ms=250 ts_ok=true ts_age_ms=4 ts_pos_now=2807762 head_minus_ts_ms=84 written_minus_ts_ms=334
+I TSPROBE : END
