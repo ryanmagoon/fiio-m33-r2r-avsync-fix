@@ -1,0 +1,35 @@
+# Offline checks only. The device cannot be tested here: tools/regression.sh needs the player
+# on adb and is the release gate described in AGENTS.md.
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Tests
+        run: bun test
+
+      - name: Shell lint
+        if: ${{ !cancelled() }}
+        run: |
+          shellcheck --version
+          shellcheck module/customize.sh tools/regression.sh
+          sh -n module/customize.sh
+
+      # The module patches the device's own libraries at install time and ships none of them.
+      - name: No firmware or library binaries tracked
+        if: ${{ !cancelled() }}
+        run: |
+          if git ls-files | grep -iE '\.(so|img|bin)$|(^|/)[^/]*payload[^/]*$'; then
+            echo "::error::The files listed above look like firmware or library binaries. This repository must not ship them."
+            exit 1
+          fi
