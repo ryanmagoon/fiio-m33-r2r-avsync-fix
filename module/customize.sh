@@ -22,6 +22,9 @@
 #   writing it and grew the real latency by one buffer (20 ms) per switch.
 #   1 branch retargeted, an 18-instruction stub in the padding, segment +0x48.
 
+# Not used in this script: Magisk reads SKIPUNZIP from customize.sh to decide whether to
+# extract the module files itself (https://topjohnwu.github.io/Magisk/guides.html#customization).
+# shellcheck disable=SC2034
 SKIPUNZIP=0
 
 fail() { ui_print "! $1"; rm -rf "$MODPATH/system"; abort "! Nothing was installed."; }
@@ -29,10 +32,15 @@ fail() { ui_print "! $1"; rm -rf "$MODPATH/system"; abort "! Nothing was install
 # patch_words FILE "OFF:OLD:NEW OFF:OLD:NEW ..."   (hex bytes, little-endian as stored)
 patch_words() {
   f="$1"; shift
-  for spec in $*; do
+  for spec in $1; do
     off=$((${spec%%:*})); rest=${spec#*:}; old=${rest%%:*}; new=${rest#*:}
     have=$(dd if="$f" bs=1 skip=$off count=$(( ${#old} / 2 )) 2>/dev/null | od -An -v -tx1 | tr -d ' \n')
-    [ "$have" = "$old" ] || fail "Unexpected bytes at offset $off in $(basename $f): got '$have', expected '$old'"
+    [ "$have" = "$old" ] || fail "Unexpected bytes at offset $off in $(basename "$f"): got '$have', expected '$old'"
+    # The format string is the data here: \xNN escapes built from the spec's hex digits, so it
+    # cannot contain a % directive. printf '%b' would decode \xNN on a different code path from
+    # the one validated on the device, and POSIX defines \xNN for neither
+    # (https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html).
+    # shellcheck disable=SC2059
     printf "$(echo "$new" | sed 's/../\\x&/g')" | dd of="$f" bs=1 seek=$off count=$(( ${#new} / 2 )) conv=notrunc 2>/dev/null || fail "write failed at $off"
   done
 }
@@ -40,7 +48,7 @@ patch_words() {
 # unpatch_words FILE SPECS : apply SPECS in reverse (NEW -> OLD) to recover the stock bytes
 unpatch_words() {
   f="$1"; shift; inv=""
-  for spec in $*; do
+  for spec in $1; do
     off=${spec%%:*}; rest=${spec#*:}; old=${rest%%:*}; new=${rest#*:}
     inv="$inv $off:$new:$old"
   done
@@ -54,9 +62,9 @@ do_patch() {  # NAME SRC DST STOCK_SHA PATCHED_SHA SPECS [PREV_SHA PREV_SPECS]
   sum=$(sha256sum "$src" | cut -d' ' -f1); ui_print "  SHA-256: $sum"
   mkdir -p "$(dirname "$dst")"; cp -f "$src" "$dst" || fail "copy failed"
   case "$sum" in
-    $stock) patch_words "$dst" "$specs" ;;
-    $expect) ui_print "  already at this module's version, keeping" ;;
-    $prev) ui_print "  previous module version found, upgrading"
+    "$stock") patch_words "$dst" "$specs" ;;
+    "$expect") ui_print "  already at this module's version, keeping" ;;
+    "$prev") ui_print "  previous module version found, upgrading"
            unpatch_words "$dst" "$prevspecs"
            [ "$(sha256sum "$dst" | cut -d' ' -f1)" = "$stock" ] || fail "$name: could not recover stock bytes"
            patch_words "$dst" "$specs" ;;
